@@ -19,3 +19,12 @@
 /src/WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer/obj/Debug/azureiisconfiguratorsync.dll
 /src/WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer/obj/Debug/azureiisconfiguratorsync.pdb
 /src/azureiisconfiguratorsync.suo
+/src/Tests/bin/Release/Tests.dll
+/src/Tests/bin/Release/Tests.pdb
+/src/Tests/bin/Release/azureiisconfiguratorsync.dll
+/src/Tests/bin/Release/azureiisconfiguratorsync.pdb
+/src/Tests/bin/Release/azureiisconfiguratorsync.xml
+/src/Tests/obj/Release/ResolveAssemblyReference.cache
+/src/Tests/obj/Release/Tests.csproj.FileListAbsolute.txt
+/src/Tests/obj/Release/Tests.dll
+/src/Tests/obj/Release/Tests.pdb
