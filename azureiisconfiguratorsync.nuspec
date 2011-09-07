@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer</id>
+    <version>1.1</version>
+    <authors>Christian Geuer-Pollmann</authors>
+    <owners>Christian Geuer-Pollmann</owners>
+    <projectUrl>https://github.com/chgeuer/azureiisconfiguratorsync</projectUrl>
+    <licenseUrl>https://github.com/chgeuer/azureiisconfiguratorsync/blob/master/LICENSE.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Syncronizes initialization of Windows Azure web roles in the development fabric, to prevent race conditions with IISConfigurator.exe</description>
+    <copyright>Copyright 2011</copyright>
+    <tags>WindowsAzure Azure</tags>
+  </metadata>
+</package>
