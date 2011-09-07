@@ -1,13 +1,12 @@
-﻿using System.Diagnostics;
-
-namespace Tests
+﻿namespace Tests
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Microsoft.EMIC.DevelopmentFabric.Utils;
+    using WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer;
 
     [TestClass]
     public class UnitTest1
@@ -36,9 +35,8 @@ namespace Tests
                 var c = CrossProcessBarrier.GetInstance(currentName, peerNames, TimeSpan.Zero);
                 tasks.Add(Task.Factory.StartNew(c.Wait));
                 Trace.TraceInformation("Launched task {0}", currentName);
-
-
             }
+
             Trace.TraceInformation("Waiting for all tasks to reach the barrier");
             Task.WaitAll(tasks.ToArray());
             Trace.TraceInformation("All tasks reached the barrier");

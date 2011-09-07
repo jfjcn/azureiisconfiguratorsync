@@ -1,10 +1,23 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="DevelopmentFabricIdentifiers.cs" company="Microsoft">
-// TODO: Update copyright text.
+//
+// Copyright 2011, Christian Geuer-Pollmann <geuerp@apache.org>
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Microsoft.EMIC.DevelopmentFabric.Utils
+namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +32,7 @@ namespace Microsoft.EMIC.DevelopmentFabric.Utils
     {
         internal DevelopmentFabricIdentifiers(string value)
         {
-            if (!MicrosoftCorpnetAuthenticationFixer.InDevFabric)
+            if (!ServerManagerBarrier.InDevFabric)
                 throw new NotSupportedException("Must be running in development fabric");
 
             var match = Regex.Match(value, pattern);
