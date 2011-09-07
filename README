@@ -1,1 +1,15 @@
-TEST
+
+Syncronizes initialization of Windows Azure web roles in the development fabric, to prevent race conditions with IISConfigurator.exe...
+
+In your web role, you basically call 
+
+    public class WebRole : RoleEntryPoint
+    {
+        public override bool OnStart()
+        {
+            WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.ServerManagerBarrier.TweakIdentityWhenRunningInCorpnet();
+
+            return base.OnStart();
+        }
+    }
+
