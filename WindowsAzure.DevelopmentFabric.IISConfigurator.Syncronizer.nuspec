@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer</id>
+    <version>1.0.0.2</version>
+    <authors>Christian Geuer-Pollmann</authors>
+    <owners>Christian Geuer-Pollmann</owners>
+    <licenseUrl>https://github.com/chgeuer/azureiisconfiguratorsync/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/chgeuer/azureiisconfiguratorsync</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Syncronizes initialization of Windows Azure web roles in the development fabric, to prevent race conditions with IISConfigurator.exe</description>
+    <copyright>Copyright 2011</copyright>
+    <tags>WindowsAzure Azure</tags>
+    <language>en-US</language>
+  </metadata>
+  <files>
+    <file src="src\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer\obj\Debug\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.dll" 
+          target="lib\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.dll" />
+  </files>
+</package>
