@@ -5,7 +5,7 @@
     <version></version>
     <authors>Christian Geuer-Pollmann</authors>
     <owners>Christian Geuer-Pollmann</owners>
-    <licenseUrl>https://github.com/chgeuer/azureiisconfiguratorsync/blob/master/LICENSE.txt</licenseUrl>
+    <licenseUrl>https://raw.github.com/chgeuer/azureiisconfiguratorsync/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/chgeuer/azureiisconfiguratorsync</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Syncronizes initialization of Windows Azure web roles in the development fabric, to prevent race conditions with IISConfigurator.exe</description>
