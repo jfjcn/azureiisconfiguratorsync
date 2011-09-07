@@ -1,8 +1,9 @@
+del "*.nupkg"
+msbuild
+
 $keyfile = "$env:USERPROFILE\nuget_apikey.txt"
-$scriptpath = split-path -parent $MyInvocation.MyCommand.Path
-$nugetpath = resolve-path "nuget.exe"
-$packagespath = resolve-path "$scriptpath/../build/packages"
- 
+$nugetpath = "nuget.exe"
+
 if(-not (test-path $keyfile)) {
   throw "Could not find the NuGet access key at $keyfile. If you're not Christian, you shouldn't be running this script!"
 }
@@ -33,7 +34,7 @@ else {
     $packages | % { 
         $package = $_.Name
         write-host "Uploading $package"
-        & $nugetpath push -source "http://packages.nuget.org/v1/" $package $key
+        & nuget.exe push -source "http://packages.nuget.org/v1/" $package $key
         write-host ""
     }
   }
