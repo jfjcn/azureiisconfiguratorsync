@@ -1,9 +1,4 @@
-
-<!-- src: http://www.jeremyskinner.co.uk/2011/01/12/automating-nuget-package-creation-with-msbuild-and-powershell/ -->
-
-
-
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="default">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="Package">
   <PropertyGroup>
     <Configuration>Release</Configuration>
     <MSBuildExtensions>$(MSBuildProjectDirectory)\bin\MSBuild.Community.Tasks.dll</MSBuildExtensions>
@@ -13,24 +8,19 @@
  
   <UsingTask AssemblyFile="$(MSBuildExtensions)" TaskName="MSBuild.Community.Tasks.XmlUpdate" />
  
-  <Target Name="default" DependsOnTargets="Compile; Package" />
- 
   <Target Name="Compile">
     <MSBuild Projects="$(SolutionFile)" Properties="Configuration=$(Configuration)"  />
   </Target>
  
-  <Target Name="Package">
+  <Target Name="Package" DependsOnTargets="Compile">
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\src\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer\bin\$(Configuration)\azureiisconfiguratorsync.dll">
       <Output TaskParameter="Assemblies" ItemName="AsmInfo" />
     </GetAssemblyIdentity>
-    <Message Text="Building version %(AsmInfo.Version)" />
-
-    <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="copy WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.nuspec temp.nuspec" />
-    <XmlUpdate Prefix="nuget" Namespace="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd" XmlFileName="$(MSBuildProjectDirectory)\temp.nuspec"
-      XPath="/nuget:package/nuget:metadata/nuget:version" Value="%(AsmInfo.Version)" />
- 
+    <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="copy build.nuspec temp.nuspec" />
+    <XmlUpdate Prefix="nuget" Namespace="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd" XmlFileName="$(MSBuildProjectDirectory)\temp.nuspec" XPath="/nuget:package/nuget:metadata/nuget:version" Value="%(AsmInfo.Version)" />
     <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="nuget.exe pack temp.nuspec" />
-    
-    <!-- <Exec Command="del temp.nuspec" /> -->
+    <Exec Command="del temp.nuspec" />
   </Target>
 </Project>
+
+<!-- src: http://www.jeremyskinner.co.uk/2011/01/12/automating-nuget-package-creation-with-msbuild-and-powershell/ -->
