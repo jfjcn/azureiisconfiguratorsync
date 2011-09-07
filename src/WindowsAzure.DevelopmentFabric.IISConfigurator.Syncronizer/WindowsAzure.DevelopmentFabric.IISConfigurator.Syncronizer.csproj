@@ -8,8 +8,8 @@
     <ProjectGuid>{2991C4E5-E41C-4642-B7F8-DF58FC88794F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.EMIC.DevelopmentFabric.Utils</RootNamespace>
-    <AssemblyName>Microsoft.EMIC.DevelopmentFabric.Utils</AssemblyName>
+    <RootNamespace>WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer</RootNamespace>
+    <AssemblyName>WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -37,7 +37,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Debug\Microsoft.EMIC.DevelopmentFabric.Utils.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,7 +46,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Microsoft.EMIC.DevelopmentFabric.Utils.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
