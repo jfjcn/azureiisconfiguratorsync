@@ -18,13 +18,13 @@ In your web role, you basically call
 
 	public class WebRole : RoleEntryPoint
 	{
-  	public override bool OnStart()
-  	{
-    	WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.ServerManagerBarrier.TweakIdentityWhenRunningInCorpnet();
-    	
-    	return base.OnStart();
-  	}
-  	}
+		public override bool OnStart()
+		{
+			WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.ServerManagerBarrier.TweakIdentityWhenRunningInCorpnet();
+			
+			return base.OnStart();
+		}
+	}
 
 Further links
 -------------
