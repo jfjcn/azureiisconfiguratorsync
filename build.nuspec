@@ -14,7 +14,7 @@
     <language>en-US</language>
   </metadata>
   <files>
-    <file src="src\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer\bin\Release\azureiisconfiguratorsync.dll" 
+    <file src="src\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer\bin\Release\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.dll" 
           target="lib\net40\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.dll" />
   </files>
 </package>

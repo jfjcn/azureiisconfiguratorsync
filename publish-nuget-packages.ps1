@@ -34,7 +34,7 @@ else {
     $packages | % { 
         $package = $_.Name
         write-host "Uploading $package"
-        & nuget.exe push -source "http://packages.nuget.org/v1/" $package $key
+        & nuget.exe push $package $key
         write-host ""
     }
   }

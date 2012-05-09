@@ -1,4 +1,4 @@
-Using ServerManager in the development favric without breaking IISConfigurator.exe
+﻿Using ServerManager in the development favric without breaking IISConfigurator.exe
 ==================================================================================
 
 This code sets the application pool identity of your web roles to an identity stored in 
@@ -16,15 +16,18 @@ Registry settings for setting application pool identity
 
 In your web role, you basically call 
 
-	public class WebRole : RoleEntryPoint
+````C#
+public class WebRole : RoleEntryPoint
+{
+	public override bool OnStart()
 	{
-		public override bool OnStart()
-		{
-			WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.ServerManagerBarrier.TweakIdentityWhenRunningInCorpnet();
+		WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.
+			ServerManagerBarrier.TweakIdentityWhenRunningInCorpnet();
 			
-			return base.OnStart();
-		}
+		return base.OnStart();
 	}
+}
+````
 
 Further links
 -------------

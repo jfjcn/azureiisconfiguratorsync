@@ -3,7 +3,7 @@
     <Configuration>Release</Configuration>
     <MSBuildExtensions>$(MSBuildProjectDirectory)\bin\MSBuild.Community.Tasks.dll</MSBuildExtensions>
     <SolutionFile>$(MSBuildProjectDirectory)\src\AzureIISConfiguratorSync.sln</SolutionFile>
-    <MainDLL>$(MSBuildProjectDirectory)\src\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer\bin\$(Configuration)\azureiisconfiguratorsync.dll</MainDLL>
+    <MainDLL>$(MSBuildProjectDirectory)\src\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer\bin\$(Configuration)\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.dll</MainDLL>
   </PropertyGroup>
  
   <UsingTask AssemblyFile="$(MSBuildExtensions)" TaskName="MSBuild.Community.Tasks.XmlUpdate" />
@@ -13,7 +13,7 @@
   </Target>
  
   <Target Name="Package" DependsOnTargets="Compile">
-    <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\src\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer\bin\$(Configuration)\azureiisconfiguratorsync.dll">
+    <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\src\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer\bin\$(Configuration)\WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer.dll">
       <Output TaskParameter="Assemblies" ItemName="AsmInfo" />
     </GetAssemblyIdentity>
     <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="copy build.nuspec temp.nuspec" />
