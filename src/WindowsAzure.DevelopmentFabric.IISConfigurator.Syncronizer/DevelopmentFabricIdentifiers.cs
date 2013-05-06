@@ -28,11 +28,11 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    internal class DevelopmentFabricIdentifiers
+    public class DevelopmentFabricIdentifiers
     {
         internal DevelopmentFabricIdentifiers(string value)
         {
-            if (!ServerManagerBarrier.InDevFabric)
+            if (!RoleEnvironment.IsAvailable || !RoleEnvironment.IsEmulated)
                 throw new NotSupportedException("Must be running in development fabric");
 
             var match = Regex.Match(value, pattern);
@@ -58,22 +58,27 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
         {
             return BelongsToSameDeployment(new DevelopmentFabricIdentifiers(otherDeploymentId));
         }
+
         public bool BelongsToSameDeployment(DevelopmentFabricIdentifiers other)
         {
             return this.DeploymentId == other.DeploymentId && this.Name == other.Name;
         }
+
         public static DevelopmentFabricIdentifiers Current
         {
             get { return new DevelopmentFabricIdentifiers(RoleEnvironment.CurrentRoleInstance.Id + "_Web"); }
         }
+
         public static List<DevelopmentFabricIdentifiers> AzureRoles
         {
             get { return RoleEnvironment.CurrentRoleInstance.Role.Instances.Select(ri => ri.Id).Select(name => new DevelopmentFabricIdentifiers(name)).ToList(); }
         }
+
         public static int NumberOfRoles
         {
             get { return DevelopmentFabricIdentifiers.AzureRoles.Where(DevelopmentFabricIdentifiers.Current.BelongsToSameDeployment).Count(); }
         }
+
         public static List<string> PeerRoles
         {
             get

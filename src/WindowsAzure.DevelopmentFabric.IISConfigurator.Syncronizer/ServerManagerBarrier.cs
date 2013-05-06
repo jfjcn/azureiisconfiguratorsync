@@ -39,24 +39,6 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
     /// </para>
     public static class ServerManagerBarrier
     {
-        // How to determine whether we run in the "real" Windows Azure data center or on a developer laptop? 
-        // Win7SP1... Fragile, but it works...
-        internal static bool IsDevMachine
-        {
-            get { return string.Equals("Microsoft Windows NT 6.1.7601 Service Pack 1", Environment.OSVersion.VersionString); }
-        }
-
-        internal static bool InFabric
-        {
-            get { return RoleEnvironment.IsAvailable; }
-        }
-
-        //// private static bool InRealCloud { get { return !IsDevMachine && InFabric; } }
-        internal static bool InDevFabric
-        {
-            get { return IsDevMachine && InFabric; }
-        }
-
         private static string GetRegistryValue(string key)
         {
             var regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft EMIC\Cloud\VENUS-C");
@@ -86,7 +68,7 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
         [DebuggerNonUserCode]
         public static void TweakIdentityWhenRunningInCorpnet()
         {
-            if (!InDevFabric)
+            if (!RoleEnvironment.IsAvailable || !RoleEnvironment.IsEmulated)
             {
                 Trace.TraceInformation(
                     "MicrosoftCorpnetAuthenticationFixer: Not running in development fabric, no fix necessary");
@@ -124,7 +106,7 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
         }
 
         [DebuggerNonUserCode]        
-        public static void ApplyServerManagerActions(Action<ServerManager> serverManagerActions)
+        public static void ApplyServerManagerActions(Action<ServerManager> serverManagerActions, bool commitChanges = false)
         {
             #region Barrier to have all instances wait for their peers to be at the same spot.
 
@@ -150,6 +132,11 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
                 using (var sm = new ServerManager())
                 {
                     serverManagerActions(sm);
+
+                    if (commitChanges)
+                    {
+                        sm.CommitChanges();
+                    }
                 }
             }
             finally
