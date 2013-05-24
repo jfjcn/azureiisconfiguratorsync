@@ -54,6 +54,7 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
         {
             return string.Format("deployment({0}).{1}.{2}_Web", DeploymentId, Name, InstanceId);
         }
+
         public bool BelongsToSameDeployment(string otherDeploymentId)
         {
             return BelongsToSameDeployment(new DevelopmentFabricIdentifiers(otherDeploymentId));

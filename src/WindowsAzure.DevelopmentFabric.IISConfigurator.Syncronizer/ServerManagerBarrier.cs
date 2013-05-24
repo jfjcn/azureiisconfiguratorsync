@@ -105,9 +105,14 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
             Trace.TraceInformation(string.Format("Instance {0} updated application pools", RoleEnvironment.CurrentRoleInstance.Id));
         }
 
-        [DebuggerNonUserCode]        
-        public static void ApplyServerManagerActions(Action<ServerManager> serverManagerActions, bool commitChanges = false)
+        public static void SerializeInDevelopmentFabric(Action action, string mutexName = "SerializeInDevelopmentFabric")
         {
+            if (!RoleEnvironment.IsEmulated)
+            {
+                action();
+                return;
+            }
+
             #region Barrier to have all instances wait for their peers to be at the same spot.
 
             Func<string, string> escapeMutexName = instanceId => instanceId.Replace("(", ".").Replace(")", ".").Replace(".", "");
@@ -123,21 +128,12 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
             #region One development fabric role instance at a time can modify app pool now
 
             // The global mutex ensures that only one instance at a time attempts to define appPool identities.  
-            var mutex = new Mutex(initiallyOwned: false, name: typeof(ServerManagerBarrier).FullName);
+            var mutex = new Mutex(initiallyOwned: false, name: mutexName);
             try
             {
                 mutex.WaitOne();
 
-                // ServerManager in %WinDir%\System32\InetSrv\Microsoft.Web.Administration.dll
-                using (var sm = new ServerManager())
-                {
-                    serverManagerActions(sm);
-
-                    if (commitChanges)
-                    {
-                        sm.CommitChanges();
-                    }
-                }
+                action();
             }
             finally
             {
@@ -145,6 +141,26 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
             }
 
             #endregion
+        }
+
+        // [DebuggerNonUserCode]        
+        public static void ApplyServerManagerActions(Action<ServerManager> serverManagerActions, bool commitChanges = false)
+        {
+            Action action = () =>
+                {
+                    // ServerManager in %WinDir%\System32\InetSrv\Microsoft.Web.Administration.dll
+                    using (var sm = new ServerManager())
+                    {
+                        serverManagerActions(sm);
+
+                        if (commitChanges)
+                        {
+                            sm.CommitChanges();
+                        }
+                    }
+                };
+
+            SerializeInDevelopmentFabric(action, mutexName: typeof (ServerManagerBarrier).FullName);
         }
     }
 }
