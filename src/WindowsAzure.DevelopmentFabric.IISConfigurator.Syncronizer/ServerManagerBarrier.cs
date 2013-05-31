@@ -105,44 +105,6 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
             Trace.TraceInformation(string.Format("Instance {0} updated application pools", RoleEnvironment.CurrentRoleInstance.Id));
         }
 
-        public static void SerializeInDevelopmentFabric(Action action, string mutexName = "SerializeInDevelopmentFabric")
-        {
-            if (!RoleEnvironment.IsEmulated)
-            {
-                action();
-                return;
-            }
-
-            #region Barrier to have all instances wait for their peers to be at the same spot.
-
-            Func<string, string> escapeMutexName = instanceId => instanceId.Replace("(", ".").Replace(")", ".").Replace(".", "");
-            var currentMutexName = escapeMutexName(RoleEnvironment.CurrentRoleInstance.Id);
-            var peerMutexNames = DevelopmentFabricIdentifiers.PeerRoles.Select(escapeMutexName);
-            var cpb = CrossProcessBarrier.GetInstance(currentMutexName, peerMutexNames, TimeSpan.FromSeconds(3));
-            cpb.Wait();
-
-            Trace.TraceInformation(string.Format("Barrier passed at {0}", DateTime.UtcNow.ToLongTimeString()));
-
-            #endregion
-
-            #region One development fabric role instance at a time can modify app pool now
-
-            // The global mutex ensures that only one instance at a time attempts to define appPool identities.  
-            var mutex = new Mutex(initiallyOwned: false, name: mutexName);
-            try
-            {
-                mutex.WaitOne();
-
-                action();
-            }
-            finally
-            {
-                mutex.ReleaseMutex();
-            }
-
-            #endregion
-        }
-
         // [DebuggerNonUserCode]        
         public static void ApplyServerManagerActions(Action<ServerManager> serverManagerActions, bool commitChanges = false)
         {
@@ -160,7 +122,7 @@ namespace WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer
                     }
                 };
 
-            SerializeInDevelopmentFabric(action, mutexName: typeof (ServerManagerBarrier).FullName);
+            DevelopmentFabricBarrier.SerializeInDevelopmentFabric(action, mutexName: typeof (ServerManagerBarrier).FullName);
         }
     }
 }

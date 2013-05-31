@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrossProcessBarrier.cs" />
+    <Compile Include="DevelopmentFabricBarrier.cs" />
     <Compile Include="DevelopmentFabricIdentifiers.cs" />
     <Compile Include="ServerManagerBarrier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
