@@ -53,6 +53,6 @@ Instead of using NuGut, you can also use the T4Include NuGet package like this:
 			Include (@"chgeuer/azureiisconfiguratorsync/master/src/WindowsAzure.DevelopmentFabric.IISConfigurator.Syncronizer/ServerManagerBarrier.cs"),
         }; 
 #>
-````
 
 <#@ include file="$(SolutionDir)\packages\T4Include.1.1.2\T4\IncludeWebFile.ttinclude" #>
+````
